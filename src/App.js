@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import './App.css';
 import MiddlePageWeather from './components/MiddlePageWeather';
 import LoadingOverlay from 'react-loading-overlay'
@@ -9,9 +9,13 @@ import FooterWeatherlist from './components/FooterWeatherlist';
   const[city,setcity]=useState();
   const[loading,setloading]=useState(false);
   const[days,setdays]=useState([])
+  const usercity=useRef(null)
   //Api Key for api call
   const API_KEY="6557810176c36fac5f0db536711a6c52";
-
+ 
+  useEffect(()=>{
+    usercity.current.focus();
+  },[])
  
    const updateState = data => {
     const city = data.city.name;
@@ -112,6 +116,7 @@ import FooterWeatherlist from './components/FooterWeatherlist';
             {/* <CityInput city={city} makeApiCall={makeApiCall} /> */}
             <input
         className='city-input'
+        ref={usercity}
         style={{
           top: city ? '-380px' : '-20px',
           width: '600px',
